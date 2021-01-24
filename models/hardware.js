@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Hardware.belongsTo(models.Product, { 
-        as: 'latches',
+        as: 'hardware',
         foreignKey: {
           fieldName: 'productId',
           type: DataTypes.INTEGER,

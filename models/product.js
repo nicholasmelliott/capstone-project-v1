@@ -27,12 +27,6 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: true
         }
       });
-      Product.hasOne(models.Frame, {
-        foreignKey: {
-          fieldname: 'productId',
-          allowNull: true
-        }
-      });
       Product.hasOne(models.Spline, {
         foreignKey: {
           fieldname: 'productId',
@@ -41,6 +35,14 @@ module.exports = (sequelize, DataTypes) => {
       });
       Product.hasMany(models.Hardware, {
         as: 'hardware',
+        foreignKey: {
+          fieldName: 'productId',
+          type: DataTypes.INTEGER,
+          allowNull: true
+        }
+      });
+      Product.hasMany(models.Frame, {
+        as: 'frames',
         foreignKey: {
           fieldName: 'productId',
           type: DataTypes.INTEGER,

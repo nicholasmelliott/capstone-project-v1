@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Location.belongsTo(models.Hardware);
+      Location.belongsTo(models.Frame);
     }
   };
   Location.init({

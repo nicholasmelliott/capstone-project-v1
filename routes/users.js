@@ -89,11 +89,15 @@ router.get('/', function(req, res, next) {
               },
               {
                 model: Frame,
+                as: 'frames',
                 attributes: ['type', 'material', 'color', 'mitre'],
                 include: [
                   {
                     model: Dimension,
                     attributes: dimAttr
+                  },
+                  {
+                    model: Location
                   }
                 ]
               },

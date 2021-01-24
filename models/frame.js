@@ -11,8 +11,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Frame.belongsTo(models.Product);
+      Frame.belongsTo(models.Product, { 
+        as: 'hardware',
+        foreignKey: {
+          fieldName: 'productId',
+          type: DataTypes.INTEGER,
+          allowNull: true
+        }
+      });
       Frame.hasOne(models.Dimension, {
+        foreignKey: {
+          fieldname: 'frameId',
+          allowNull: true
+        }
+      });
+      Frame.hasOne(models.Location, {
         foreignKey: {
           fieldname: 'frameId',
           allowNull: true
