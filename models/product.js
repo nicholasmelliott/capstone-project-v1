@@ -39,8 +39,8 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: true
         }
       });
-      Product.hasMany(models.Latch, {
-        as: 'latches',
+      Product.hasMany(models.Hardware, {
+        as: 'hardware',
         foreignKey: {
           fieldName: 'productId',
           type: DataTypes.INTEGER,

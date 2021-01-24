@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Location.belongsTo(models.Latch);
+      Location.belongsTo(models.Hardware);
     }
   };
   Location.init({

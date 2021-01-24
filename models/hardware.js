@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Latch extends Model {
+  class Hardware extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Latch.belongsTo(models.Product, { 
+      Hardware.belongsTo(models.Product, { 
         as: 'latches',
         foreignKey: {
           fieldName: 'productId',
@@ -19,27 +19,28 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: true
         }
       });
-      Latch.hasOne(models.Location, {
+      Hardware.hasOne(models.Location, {
         foreignKey: {
-          fieldname: 'latchId',
+          fieldname: 'hardwareId',
           allowNull: true
         }
       });
-      Latch.hasOne(models.Dimension, {
+      Hardware.hasOne(models.Dimension, {
         foreignKey: {
-          fieldname: 'latchId',
+          fieldname: 'hardwareId',
           allowNull: true
         }
       });
     }
   };
-  Latch.init({
+  Hardware.init({
     type: DataTypes.STRING,
     material: DataTypes.STRING,
-    color: DataTypes.STRING
+    color: DataTypes.STRING,
+    comments: DataTypes.TEXT
   }, {
     sequelize,
-    modelName: 'Latch',
+    modelName: 'Hardware',
   });
-  return Latch;
+  return Hardware;
 };

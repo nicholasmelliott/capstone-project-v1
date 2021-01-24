@@ -12,7 +12,7 @@ const Product = require("../models").Product;
 const Dimension = require("../models").Dimension;
 const Frame = require("../models").Frame;
 const Spline = require("../models").Spline;
-const Latch = require("../models").Latch;
+const Hardware = require("../models").Hardware;
 const Location = require("../models").Location;
 
 const dimAttr = ['width', 'height', 'depth'];
@@ -108,9 +108,9 @@ router.get('/', function(req, res, next) {
                 ]
               },
               {
-                model: Latch,
+                model: Hardware,
                 attributes: ['type', 'material', 'color'],
-                as: 'latches',
+                as: 'hardware',
                 include: [
                   {
                     model: Dimension,

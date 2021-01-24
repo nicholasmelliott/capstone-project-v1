@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Dimension.belongsTo(models.Product);
       Dimension.belongsTo(models.Frame);
       Dimension.belongsTo(models.Spline);
-      Dimension.belongsTo(models.Latch);
+      Dimension.belongsTo(models.Hardware);
     }
   };
   Dimension.init({
