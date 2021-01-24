@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Person extends Model {
+  class Product extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,61 +11,55 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Person.hasMany(models.Phone, {
-        as: 'phone',
+      Product.belongsToMany(models.Order, {
+        as: 'products',
+        through: 'OrderProduct',
         foreignKey: {
-          fieldName: 'personId',
-          type: DataTypes.INTEGER,
-          allowNull: true
-        }
-      });
-      Person.hasMany(models.Email, {
-        as: 'email',
-        foreignKey: {
-          fieldName: 'personId',
-          type: DataTypes.INTEGER,
-          allowNull: true
-        }
-      });
-      Person.hasMany(models.Address, {
-        as: 'address',
-        foreignKey: {
-          fieldName: 'personId',
-          type: DataTypes.INTEGER,
-          allowNull: true
-        }
-      });
-      Person.belongsToMany(models.Company, {
-        as: 'employee',
-        through: 'CompanyPerson',
-        foreignKey: {
-          fieldName: 'personId',
+          fieldName: 'productId',
           type: DataTypes.INTEGER,
           allowNull: true
         },
-        otherKey: 'companyId',
+        otherKey: 'orderId',
       });
-      Person.hasMany(models.Order, {
-        as: 'orders',
+      Product.hasOne(models.Dimension, {
         foreignKey: {
-          fieldName: 'personId',
+          fieldname: 'productId',
+          allowNull: true
+        }
+      });
+      Product.hasOne(models.Frame, {
+        foreignKey: {
+          fieldname: 'productId',
+          allowNull: true
+        }
+      });
+      Product.hasOne(models.Spline, {
+        foreignKey: {
+          fieldname: 'productId',
+          allowNull: true
+        }
+      });
+      Product.hasMany(models.Latch, {
+        as: 'latches',
+        foreignKey: {
+          fieldName: 'productId',
           type: DataTypes.INTEGER,
           allowNull: true
         }
       });
     }
   };
-  Person.init({
+  Product.init({
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    fName: DataTypes.STRING,
-    lName: DataTypes.STRING
+    type: DataTypes.STRING,
+    comments: DataTypes.TEXT
   }, {
     sequelize,
-    modelName: 'Person',
+    modelName: 'Product',
   });
-  return Person;
+  return Product;
 };

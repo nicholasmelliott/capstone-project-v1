@@ -16,16 +16,36 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: {
           fieldName: 'personId',
           type: DataTypes.INTEGER,
-          allowNull: false
+          allowNull: true
         }
       });
+      Phone.belongsTo(models.Company, { 
+        as: 'companyPhone',
+        foreignKey: {
+          fieldName: 'companyId',
+          type: DataTypes.INTEGER,
+          allowNull: true
+        }
+      });
+      // Phone.belongsTo(models.Order, { 
+      //   as: 'phone',
+      //   foreignKey: {
+      //     fieldName: 'personId',
+      //     type: DataTypes.INTEGER,
+      //     allowNull: false
+      //   }
+      // });
     }
   };
   Phone.init({
-    personId: {
+    id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
+    personId: DataTypes.INTEGER,
+    companyId: DataTypes.INTEGER,
+    //orderId: DataTypes.INTEGER,
     areaCd: DataTypes.STRING,
     number: DataTypes.STRING,
     type: DataTypes.STRING

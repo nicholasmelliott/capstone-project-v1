@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Email extends Model {
+  class Address extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,42 +11,33 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Email.belongsTo(models.Person, { 
-        as: 'email',
+      Address.belongsTo(models.Person, { 
+        as: 'address',
         foreignKey: {
           fieldName: 'personId',
           type: DataTypes.INTEGER,
           allowNull: true
         }
       });
-      Email.belongsTo(models.Company, { 
-        as: 'companyEmail',
-        foreignKey: {
-          fieldName: 'companyId',
-          type: DataTypes.INTEGER,
-          allowNull: true
-        }
-      });
     }
   };
-  Email.init({
+  Address.init({
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    personId: {
-      type: DataTypes.INTEGER
-    },
-    companyId: {
-      type: DataTypes.INTEGER
-    },
-    emailAddress: DataTypes.STRING,
-    type: DataTypes.STRING,
+    personId: DataTypes.INTEGER,
+    companyId: DataTypes.INTEGER,
+    address1: DataTypes.STRING,
+    address2: DataTypes.STRING,
+    city: DataTypes.STRING,
+    state: DataTypes.STRING,
+    zipCd: DataTypes.STRING,
     comments: DataTypes.TEXT
   }, {
     sequelize,
-    modelName: 'Email',
+    modelName: 'Address',
   });
-  return Email;
+  return Address;
 };

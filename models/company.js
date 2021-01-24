@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Email extends Model {
+  class Company extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,15 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Email.belongsTo(models.Person, { 
-        as: 'email',
+      Company.hasMany(models.Phone, {
+        as: 'companyPhone',
         foreignKey: {
-          fieldName: 'personId',
+          fieldName: 'companyId',
           type: DataTypes.INTEGER,
           allowNull: true
         }
       });
-      Email.belongsTo(models.Company, { 
+      Company.hasMany(models.Email, {
         as: 'companyEmail',
         foreignKey: {
           fieldName: 'companyId',
@@ -27,26 +27,37 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: true
         }
       });
+      Company.hasMany(models.Order, {
+        as: 'companyOrders',
+        foreignKey: {
+          fieldName: 'companyId',
+          type: DataTypes.INTEGER,
+          allowNull: true
+        }
+      });
+      Company.belongsToMany(models.Person, {
+        as: 'employees',
+        through: 'CompanyPerson',
+        foreignKey: {
+          fieldName: 'companyId',
+          type: DataTypes.INTEGER,
+          allowNull: true
+        },
+        otherKey: 'personId',
+      });
     }
   };
-  Email.init({
+  Company.init({
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    personId: {
-      type: DataTypes.INTEGER
-    },
-    companyId: {
-      type: DataTypes.INTEGER
-    },
-    emailAddress: DataTypes.STRING,
-    type: DataTypes.STRING,
+    name: DataTypes.STRING,
     comments: DataTypes.TEXT
   }, {
     sequelize,
-    modelName: 'Email',
+    modelName: 'Company',
   });
-  return Email;
+  return Company;
 };

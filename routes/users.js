@@ -1,24 +1,135 @@
-var express = require('express');
-var router = express.Router();
-var Person = require("../models").Person;
-var Phone = require("../models").Phone;
-var Email = require("../models").Email;
+const express = require('express');
+const router = express.Router();
 
-// router.get('/new', function(req, res, next) {
-//   res.render('/new', {person: Person.build()});
-// });
+//Models
+const Person = require("../models").Person;
+const Phone = require("../models").Phone;
+const Email = require("../models").Email;
+const Address = require("../models").Address;
+const Company = require("../models").Company;
+const Order = require("../models").Order;
+const Product = require("../models").Product;
+const Dimension = require("../models").Dimension;
+const Frame = require("../models").Frame;
+const Spline = require("../models").Spline;
+const Latch = require("../models").Latch;
+const Location = require("../models").Location;
 
-/* GET users listing. */
+const dimAttr = ['width', 'height', 'depth'];
+
+
+//Get All People with their relevant info and orders
 router.get('/', function(req, res, next) {
   Person.findAll({
+    attributes: { 
+      exclude: [
+        'createdAt',
+        'updatedAt'  
+      ] 
+    },
     include: [
       {
         model: Phone,
-        as: 'phone'
+        as: 'phone',
+        attributes: { 
+          exclude: [
+            'createdAt',
+            'updatedAt'  
+          ] 
+        },
       },
       {
         model: Email,
-        as: 'email'
+        as: 'email',
+        attributes: { 
+          exclude: [
+            'createdAt',
+            'updatedAt'  
+          ] 
+        },
+      },
+      {
+        model: Address,
+        as: 'address',
+        attributes: { 
+          exclude: [
+            'createdAt',
+            'updatedAt'  
+          ] 
+        },
+      },
+      {
+        model: Company,
+        as:'employee',
+        through: {
+          attributes: []
+        },
+        attributes: { 
+          exclude: [
+            'createdAt',
+            'updatedAt'  
+          ] 
+        },
+      },
+      {
+        model: Order,
+        as: 'orders',
+        include: [
+          {
+            model: Product,
+            as: 'products',
+            attributes: ['type', 'comments'],
+            through: {
+              attributes: []
+            },
+            include: [
+              {
+                model: Dimension,
+                attributes: dimAttr
+              },
+              {
+                model: Frame,
+                attributes: ['type', 'material', 'color', 'mitre'],
+                include: [
+                  {
+                    model: Dimension,
+                    attributes: dimAttr
+                  }
+                ]
+              },
+              {
+                model: Spline,
+                attributes: ['type', 'material', 'color'],
+                include: [
+                  {
+                    model: Dimension,
+                    attributes: dimAttr
+                  }
+                ]
+              },
+              {
+                model: Latch,
+                attributes: ['type', 'material', 'color'],
+                as: 'latches',
+                include: [
+                  {
+                    model: Dimension,
+                    attributes: dimAttr
+                  },
+                  {
+                    model: Location
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        attributes: { 
+          exclude: [
+            'createdAt',
+            'updatedAt'  
+          ] 
+        },
       }
     ]
   }).then(person => {
@@ -26,24 +137,76 @@ router.get('/', function(req, res, next) {
   });
 });
 
+// Get all companies with relevant info and orders
+router.get('/company', function(req, res, next) {
+  Company.findAll({
+    include: [
+      {
+        model: Phone,
+        as:'companyPhone'
+      },
+      {
+        model: Email,
+        as: 'companyEmail'
+      },
+      {
+        model: Person,
+        as:'employees',
+        through: {
+          attributes: []
+        }
+      },
+      {
+        model: Order,
+        as: 'companyOrders'
+      }
+    ]
+  }).then(person => {
+    res.json(person);
+  });
+});
+
+//Create new person
 router.post('/', function(req, res, next) {
   Person.create(req.body).then(function(person) {
     res.redirect("/");
   });
 });
 
-//create phone
+//Create new phone 
 router.post('/phone', function(req, res, next) {
   Phone.create(req.body).then(function(phone) {
     res.redirect("/");
   });
 });
 
-//create email
+//Create new email
 router.post('/email', function(req, res, next) {
   Email.create(req.body).then(function(email) {
     res.redirect("/");
   });
 });
+
+//Create new address
+router.post('/address', function(req, res, next) {
+  Address.create(req.body).then(function(address) {
+    res.redirect("/");
+  });
+});
+
+
+//Create new company with current person
+router.post('/company/:id',  async function(req, res, next) {
+  let company;
+  let person;
+  const companyInstance = await Promise.all([Company.create(req.body), Person.findByPk(req.params.id)]);
+  
+  [ company, person ] = companyInstance;
+
+  company.addEmployees(person);
+
+    res.redirect("/");
+});
+
 
 module.exports = router;

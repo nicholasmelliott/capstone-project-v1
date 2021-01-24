@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Email extends Model {
+  class Order extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,42 +11,48 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Email.belongsTo(models.Person, { 
-        as: 'email',
+      Order.belongsTo(models.Person, { 
+        as: 'orders',
         foreignKey: {
           fieldName: 'personId',
           type: DataTypes.INTEGER,
           allowNull: true
         }
       });
-      Email.belongsTo(models.Company, { 
-        as: 'companyEmail',
+      Order.belongsTo(models.Company, { 
+        as: 'companyOrders',
         foreignKey: {
           fieldName: 'companyId',
           type: DataTypes.INTEGER,
           allowNull: true
         }
       });
+      Order.belongsToMany(models.Product, {
+        as: 'products',
+        through: 'OrderProduct',
+        foreignKey: {
+          fieldName: 'orderId',
+          type: DataTypes.INTEGER,
+          allowNull: true
+        },
+        otherKey: 'productId',
+      });
     }
   };
-  Email.init({
+  Order.init({
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    personId: {
-      type: DataTypes.INTEGER
-    },
-    companyId: {
-      type: DataTypes.INTEGER
-    },
-    emailAddress: DataTypes.STRING,
     type: DataTypes.STRING,
+    personId: DataTypes.INTEGER,
+    companyId: DataTypes.INTEGER,
+    totalId: DataTypes.INTEGER,
     comments: DataTypes.TEXT
   }, {
     sequelize,
-    modelName: 'Email',
+    modelName: 'Order',
   });
-  return Email;
+  return Order;
 };
