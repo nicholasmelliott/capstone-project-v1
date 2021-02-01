@@ -1,0 +1,77 @@
+div(class="d-none d-md-block")
+ div(class='row')
+  div(class="col pr-1")
+   div(class='complete-header') Completed Orders
+    img(src="check2-circle.svg", class="ml-2")
+   each order in orders
+    if order.complete
+     div(class='d-flex complete-item')
+      div(class="col-6")
+       if order.orders
+        h4= order.orders.fName + " " + order.orders.lName
+       else if order.companyOrders
+        h4= order.companyOrders.name
+       else
+        h4 NO NAME
+       h6= order.type 
+      div(class="col-3")
+       if order.products
+        h6= order.products.length   
+       p= order.comments
+      div(class="col-3") 
+       img(src="check2-circle.svg", width="auto", height="70px")
+  div(class="col pl-1")   
+   div(class='pending-header') Pending Orders
+    img(src="circle.svg", class="ml-2")
+   each order in orders
+    if !order.complete
+     div(class='d-flex pending-item')
+      div(class="col-6")
+       if order.orders
+        h4= order.orders.fName + " " + order.orders.lName
+       else if order.companyOrders
+        h4= order.companyOrders.name
+       else
+        h4 NO NAME
+       h6= order.type 
+      div(class="col-3")
+       if order.products
+        h6= order.products.length   
+       p= order.comments
+      div(class="col-3") 
+       img(src="circle.svg", width="auto", height="60px")
+nav(id="navbar-example2", class="navbar navbar-light bg-light justify-content-around d-md-none orders-small")
+ ul(class="nav nav-pills")
+  li(class="nav-item")
+   a(class="nav-link", href="#cOrders") Completed Orders
+  li(class="nav-item")
+   a(class="nav-link", href="#pOrders") Pending Orders
+div(data-spy="scroll", data-target="#navbar-example2", data-offset="0", class="d-md-none")
+ each order in orders
+  if order.complete
+   div(id="cOrders", class='d-flex complete-item')
+    div(class="col-6")
+     if order.orders
+      h4= order.orders.fName + " " + order.orders.lName
+     else if order.companyOrders
+      h4= order.companyOrders.name
+     else
+      h4 NO NAME
+    div(class="col-3")   
+     p= order.comments
+    div(class="col-3") 
+     img(src="check2-circle.svg", width="auto", height="70px")
+  if !order.complete
+   div(id="pOrders", class='d-flex pending-item')
+    div(class="col-6")
+     if order.orders
+      h4= order.orders.fName + " " + order.orders.lName
+     else if order.companyOrders
+      h4= order.companyOrders.name
+     else
+      h4 NO NAME
+    div(class="col-3")   
+     p= order.comments
+    div(class="col-3") 
+     img(src="circle.svg", width="auto", height="60px")
+ 
