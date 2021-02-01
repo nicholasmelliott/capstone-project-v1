@@ -46,6 +46,10 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true
     },
     type: DataTypes.STRING,
+    complete: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     personId: DataTypes.INTEGER,
     companyId: DataTypes.INTEGER,
     totalId: DataTypes.INTEGER,
