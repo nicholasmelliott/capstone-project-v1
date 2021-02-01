@@ -27,14 +27,6 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: true
         }
       });
-      // Phone.belongsTo(models.Order, { 
-      //   as: 'phone',
-      //   foreignKey: {
-      //     fieldName: 'personId',
-      //     type: DataTypes.INTEGER,
-      //     allowNull: false
-      //   }
-      // });
     }
   };
   Phone.init({
