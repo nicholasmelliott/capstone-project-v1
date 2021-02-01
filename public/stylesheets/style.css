@@ -1,8 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #EBEBEB;
+  height: 3000px;
 }
 
 a {
-  color: #00B7FF;
+  text-decoration: none;
+  padding: 0;
+}
+
+.card {
+  margin-left: 10px;
+  margin-top: 70px;
+  border: 2px solid #B5B5B5;
+  border-radius: 5%;
+}
+
+.card-body {
+  z-index: 1;
+}
+
+.services-small {
+  margin-top: 60px;
+  text-align: center;
+}
+
+.orders-small {
+  margin-top: 30px;
+  text-align: center;
+}
+
+
+.services-small div {
+  margin-top: 30px;
+  margin-top: 20px;
+}
+
+.services-group > .row {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.services-group > .col-md-3 {
+  display: inline-block;
+}
+
+.navbar-collapse {
+  width: auto;
+}
+
+.navbar-brand {
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: x-large;
+  font-weight: bold;
+  color: #8CD5FF;
+}
+
+.complete-header {
+  text-align: center;
+  padding-top: 15px;
+  height: 50px;
+  background-color: #8CD5FF;
+  color: black;
+  margin-top: 10px;
+  border: 2px solid white;
+  border-radius: 2.5%;
+}
+
+.complete-item {
+  text-align: center;
+  height: 80px;
+  padding: 0;
+  background-color: #8CD5FF;
+  color: black;
+  margin-top: 10px;
+  border: 2px solid white;
+  border-radius: 2.5%;
+}
+
+.pending-header {
+  text-align: center;
+  padding-top: 15px;
+  height: 50px;
+  background-color: white;
+  margin-top: 10px;
+  border: 2px solid black;
+  border-radius: 2.5%;
+}
+
+.pending-item {
+  text-align: center;
+  padding: 0;
+  height: 80px;
+  background-color: white;
+  margin-top: 10px;
+  border: 2px solid black;
+  border-radius: 2.5%;
 }
