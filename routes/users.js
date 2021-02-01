@@ -170,6 +170,57 @@ router.get('/company', function(req, res, next) {
   });
 });
 
+// Get all orders
+router.get('/orders', function(req, res, next) {
+  Order.findAll({
+    include: [
+      {
+        model: Product,
+        as:'products',
+        include: {
+          model: Frame,
+          as: 'frames'
+        }
+      },
+      {
+        model: Person,
+        as: 'orders'
+      },
+      {
+        model: Company,
+        as: 'companyOrders'
+      }
+    ]
+  }).then(orders => {
+    res.json(orders);
+  });
+});
+
+//Create new order with product and specs
+router.post('/order',  async function(req, res, next) {
+  let order;
+  let person;
+  let product;
+  let frame;
+  let spline;
+  let hardware;
+  let dimension;
+  console.log(req.body[1]);
+  const instances = await Promise.all([
+    Order.create(req.body[0]), 
+    Product.create(req.body[1]),
+    Frame.create(req.body[2])
+  ]);
+  
+  [ order, product, frame ] = instances;
+
+  
+  order.addProducts(product);
+  product.addFrames(frame);
+
+   res.redirect("/");
+});
+
 //Create new person
 router.post('/', function(req, res, next) {
   Person.create(req.body).then(function(person) {
