@@ -177,10 +177,15 @@ router.get('/orders', function(req, res, next) {
       {
         model: Product,
         as:'products',
-        include: {
-          model: Frame,
-          as: 'frames'
-        }
+        include: [
+          {
+            model: Frame,
+            as: 'frames'
+          },
+          {
+            model: Dimension
+          }
+        ]
       },
       {
         model: Person,
@@ -209,14 +214,14 @@ router.post('/order',  async function(req, res, next) {
   const instances = await Promise.all([
     Order.create(req.body[0]), 
     Product.create(req.body[1]),
-    Frame.create(req.body[2])
+    Dimension.create(req.body[2])
   ]);
   
-  [ order, product, frame ] = instances;
+  [ order, product, dimension ] = instances;
 
   
   order.addProducts(product);
-  product.addFrames(frame);
+ // product.addDimension(dimension);
 
    res.redirect("/");
 });
