@@ -14,12 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Product.belongsToMany(models.Order, {
         as: 'products',
         through: 'OrderProduct',
-        foreignKey: {
-          fieldName: 'productId',
-          type: DataTypes.INTEGER,
-          allowNull: true
-        },
-        otherKey: 'orderId',
+        foreignKey: 'productId'
       });
       Product.hasOne(models.Dimension, {
         foreignKey: {
@@ -57,6 +52,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
+    quantity: DataTypes.INTEGER,
     type: DataTypes.STRING,
     comments: DataTypes.TEXT
   }, {

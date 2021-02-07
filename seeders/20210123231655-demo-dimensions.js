@@ -20,6 +20,8 @@ module.exports = {
      },
      {
         productId: 1,
+        width: 20.00,
+        height: 20.00,
         createdAt: new Date(),
         updatedAt: new Date()
      },
@@ -33,6 +35,8 @@ module.exports = {
      },
      {
         productId: 5, 
+        width: 10.00,
+        height: 10.70,
         createdAt: new Date(),
         updatedAt: new Date()
      }

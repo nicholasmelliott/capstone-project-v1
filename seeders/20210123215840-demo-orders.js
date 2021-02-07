@@ -18,6 +18,7 @@ module.exports = {
      },
      {
         personId: 6,
+        complete: true,
         type:'Repair',
         comments: 'Repairing strom window.',
         createdAt: new Date(),
@@ -33,6 +34,7 @@ module.exports = {
      {
         companyId: 1,
         type:'Build',
+        complete: true,
         comments: 'Building frame without glass.', 
         createdAt: new Date(),
         updatedAt: new Date()
