@@ -1,134 +1,30 @@
-.alert.alert-dark.alert-dismissible.fade.show.mt-2.ml-xl-4.mr-xl-4.text-center.order-list-alert(role='alert')
-      strong Looking to see if your order has been completed? 
-      | Check the fields below.
-      button.close(type='button' data-dismiss='alert' aria-label='Close')
-        span(aria-hidden='true') &times;       
-div(class="d-none d-lg-block order-list-main")
- div(class='row')
-  div(class="col pr-0 ml-xl-4 mr-xl-2")
-   div(class='complete-header') Completed Orders
-    img(src="check2-circle.svg", class="ml-2")
-   div(class="orders-large-body") 
-    each order in orders
-     if order.complete
-      div(class='d-flex complete-item')
-       div(class="col-9")
-        div(class="row ml-1 name-title")
-         if order.orders
-          h4(class="font-weight-bold ml-2 mt-3")= order.orders.fName + " " + order.orders.lName
-         else if order.companyOrders
-          h4(class="font-weight-bold ml-2 mt-3")= order.companyOrders.name
-         else
-          h4(class="font-weight-bold ml-2 mt-3") NO NAME
-        div(class="row ml-2 mt-2")
-         ul(class="list-group" style="width:100%")  
-          if order.products
-           each product in order.products
-            if product.Dimension
-             li(class="list-group-item p-0 d-flex inline-block")
-              h8(class="col-1 font-weight-bold text-center m-0 p-0")= product.quantity
-              h8(class="col-8 m-0 p-0 text-left text-uppercase")=  "  -  " + product.Dimension.width + "'' x " + product.Dimension.height + "''" + " " + product.type 
-              h8(class="col-3 font-weight-bold m-0 p-0 text-left text-uppercase", style="color:gray")= order.type
-          li(class="list-group-item p-0 d-flex inline-block")
-           if order.products
-            h6(class="col-1 p-0 font-italic font-weight-bold")= order.products.length   
-            h8(class="col-3 p-0 font-italic text-left") Total Items
-       div(class="col-3") 
-        img(src="check2-circle.svg", width="auto", height="70px")
-        h6(style="color:white;font-size:10px") Order Complete.
-  div(class="col pl-0 ml-xl-2 mr-xl-4")   
-   div(class='pending-header') Pending Orders
-    img(src="circle.svg", class="ml-2", width="14px", height="14px")
-   div(class="orders-large-body")  
-    each order in orders
-     if !order.complete
-      div(class='d-flex pending-item')
-       div(class="col-9")
-        div(class="row ml-1 name-title")
-         if order.orders
-          h4(class="font-weight-bold ml-2 mt-3")= order.orders.fName + " " + order.orders.lName
-         else if order.companyOrders
-          h4(class="font-weight-bold ml-2 mt-3")= order.companyOrders.name
-         else
-          h4(class="font-weight-bold ml-2 mt-3") NO NAME
-        div(class="row ml-2 mt-2") 
-         ul(class="list-group" style="width:100%")    
-          if order.products
-           each product in order.products
-            if product.Dimension
-             li(class="list-group-item p-0 d-flex inline-block")
-              h8(class="col-1 font-weight-bold text-center m-0 p-0")= product.quantity
-              h8(class="col-8 m-0 p-0 text-left text-uppercase")=  "  -  " + product.Dimension.width + "'' x " + product.Dimension.height + "''" + " " + product.type 
-              h8(class="col-3 font-weight-bold m-0 p-0 text-left text-uppercase", style="color:gray")= order.type
-          li(class="list-group-item p-0 d-flex inline-block")
-           if order.products
-            h6(class="col-1 p-0 font-italic font-weight-bold")= order.products.length   
-            h8(class="col-3 p-0 font-italic text-left") Total Items 
-       div(class="col-3") 
-        img(src="circle.svg", width="auto", height="60px")
-        h6(style="color:gray;font-size:10px") Order Pending...
-div(class="order-list-main")      
- nav(id="navbar-example2", role="tablist", class="navbar navbar-light bg-light px-3 position-relative justify-content-around d-lg-none")
-  ul(class="nav nav-tabs")
-   li(class="nav-item")
-    a(class="nav-link", href="#cOrders") Completed Orders
-   li(class="nav-item")
-    a(class="nav-link", href="#pOrders") Pending Orders
- div(data-spy="scroll", data-target="#navbar-example2", data-offset="0", class="d-lg-none orders-small-body")
-  div(id="cOrders") 
-   each order in orders
-     if order.complete
-      div(class='d-flex complete-item')
-       div(class="col-9")
-        div(class="row ml-1 name-title")
-         if order.orders
-          h4(class="font-weight-bold ml-2 mt-3")= order.orders.fName + " " + order.orders.lName
-         else if order.companyOrders
-          h4(class="font-weight-bold ml-2 mt-3")= order.companyOrders.name
-         else
-          h4(class="font-weight-bold ml-2 mt-3") NO NAME
-        div(class="row ml-2 mt-2")
-         ul(class="list-group" style="width:100%")    
-          if order.products
-           each product in order.products
-            if product.Dimension
-             li(class="list-group-item p-0 d-flex inline-block")
-              h8(class="col-1 font-weight-bold text-center m-0 p-0")= product.quantity
-              h8(class="col-8 m-0 p-0 text-left text-uppercase")=  "  -  " + product.Dimension.width + "'' x " + product.Dimension.height + "''" + " " + product.type 
-              h8(class="col-3 font-weight-bold m-0 p-0 text-left text-uppercase", style="color:gray")= order.type
-          li(class="list-group-item p-0 d-flex inline-block")
-           if order.products
-            h6(class="col-1 p-0 font-italic font-weight-bold")= order.products.length   
-            h8(class="col-3 p-0 font-italic text-left") Total Items
-       div(class="col-3") 
-        img(src="check2-circle.svg", width="auto", height="70px")
-        h6(style="color:white;font-size:10px") Order Complete.
-  div(id="pOrders" class="") 
-   each order in orders
-     if !order.complete
-      div(class='d-flex pending-item')
-       div(class="col-9")
-        div(class="row ml-1 name-title")
-         if order.orders
-          h4(class="font-weight-bold ml-2 mt-3")= order.orders.fName + " " + order.orders.lName
-         else if order.companyOrders
-          h4(class="font-weight-bold ml-2 mt-3")= order.companyOrders.name
-         else
-          h4(class="font-weight-bold ml-2 mt-3") NO NAME
-        div(class="row ml-2 mt-2") 
-         ul(class="list-group" style="width:100%")     
-          if order.products
-           each product in order.products
-            if product.Dimension
-             li(class="list-group-item p-0 d-flex inline-block")
-              h8(class="col-1 font-weight-bold text-center m-0 p-0")= product.quantity
-              h8(class="col-8 m-0 p-0 text-left text-uppercase")=  "  -  " + product.Dimension.width + "'' x " + product.Dimension.height + "''" + " " + product.type 
-              h8(class="col-3 font-weight-bold m-0 p-0 text-left text-uppercase", style="color:gray")= order.type
-          li(class="list-group-item p-0 d-flex inline-block")
-           if order.products
-            h6(class="col-1 p-0 font-italic font-weight-bold")= order.products.length   
-            h8(class="col-3 p-0 font-italic text-left") Total Items
-       div(class="col-3") 
-        img(src="circle.svg", width="auto", height="60px")
-        h6(style="color:gray;font-size:10px") Order Pending...
-  
+block content 
+ .alert.alert-dark.alert-dismissible.fade.show.mt-2.ml-xl-4.mr-xl-4.text-center.order-list-alert(role='alert')
+       strong Looking to see if your order has been completed? 
+       | Check the fields below.
+       button.close(type='button' data-dismiss='alert' aria-label='Close')
+         span(aria-hidden='true') &times;       
+ div(class="d-none d-lg-block order-list-main")
+  div(class='row')
+   div(class="col pr-0 ml-xl-4 mr-xl-2")
+    div(class='complete-header') Completed Orders
+     img(src="check2-circle.svg", class="ml-2")
+    div(class="orders-large-body") 
+     include orderCompleteItems
+   div(class="col pl-0 ml-xl-2 mr-xl-4")   
+    div(class='pending-header') Pending Orders
+     img(src="circle.svg", class="ml-2", width="14px", height="14px")
+    div(class="orders-large-body")  
+     include orderPendingItems
+ div(class="order-list-main")      
+  nav(id="navbar-example2", role="tablist", class="navbar navbar-light bg-light px-3 position-relative justify-content-around d-lg-none")
+   ul(class="nav nav-tabs")
+    li(class="nav-item")
+     a(class="nav-link", href="#cOrders") Completed Orders
+    li(class="nav-item")
+     a(class="nav-link", href="#pOrders") Pending Orders
+  div(data-spy="scroll", data-target="#navbar-example2", data-offset="0", class="d-lg-none orders-small-body")
+   div(id="cOrders") 
+    include orderCompleteItems
+   div(id="pOrders" class="") 
+    include orderPendingItems
