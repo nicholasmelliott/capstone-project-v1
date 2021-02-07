@@ -1,17 +1,23 @@
-
-div(class="d-none d-sm-block")
+.alert.alert-dark.alert-dismissible.fade.show.ml-xl-4.ml-xl-4.text-center.services-alert(role='alert')
+   strong Needing a service? 
+   | Click a service below to learn more and place an order.
+   button.close(type='button' data-dismiss='alert' aria-label='Close')
+    span(aria-hidden='true') &times; 
+div(class="d-none d-md-block services-main")
  div(class="d-flex")
   each service in services
-   div(class="card col-3", style="width: 18rem;")
-    img(class="card-img-top", src="shop-window.svg", alt="Card image cap", width="100%", height="auto")
-    div(class="card-body")
+   div(class="card col", style="width: 18rem;")
+    img(class="card-img-top mt-2", src=service.imgSrc alt="Card image cap", width="100%", height="auto")
+    div(class="card-body pl-0 pr-0")
      h5(class="card-title")= service.type
      p(class="card-text")= service.desc
-     a(href="#", class="btn btn-primary")= service.type
-div(class="d-sm-none services-small")
+    div(class="card-footer text-muted")
+     a(href="/orders", class="btn btn-outline-secondary btn-md btn-block footer")= service.btn
+
+div(class="d-md-none services-small")
  div(class="d-flex justify-content-around flex-wrap")
   each service in services
-   div(class="col-4")
-    a(href="#")= service.type
-     img(src="shop-window.svg", alt="Card image cap", width="80px", height="auto")
-   
+   div(class="col-4 content-justify-center")
+    a(href="/orders")
+     img(src=service.imgSrc, alt="Card image cap", width="80px", height="auto")
+     p= service.type

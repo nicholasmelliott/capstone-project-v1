@@ -1,77 +1,71 @@
-div(class="d-none d-md-block")
- div(class='row')
-  div(class="col pr-1")
-   div(class='complete-header') Completed Orders
-    img(src="check2-circle.svg", class="ml-2")
-   each order in orders
-    if order.complete
-     div(class='d-flex complete-item')
-      div(class="col-6")
-       if order.orders
-        h4= order.orders.fName + " " + order.orders.lName
-       else if order.companyOrders
-        h4= order.companyOrders.name
-       else
-        h4 NO NAME
-       h6= order.type 
-      div(class="col-3")
-       if order.products
-        h6= order.products.length   
-       p= order.comments
-      div(class="col-3") 
-       img(src="check2-circle.svg", width="auto", height="70px")
-  div(class="col pl-1")   
-   div(class='pending-header') Pending Orders
-    img(src="circle.svg", class="ml-2")
-   each order in orders
-    if !order.complete
-     div(class='d-flex pending-item')
-      div(class="col-6")
-       if order.orders
-        h4= order.orders.fName + " " + order.orders.lName
-       else if order.companyOrders
-        h4= order.companyOrders.name
-       else
-        h4 NO NAME
-       h6= order.type 
-      div(class="col-3")
-       if order.products
-        h6= order.products.length   
-       p= order.comments
-      div(class="col-3") 
-       img(src="circle.svg", width="auto", height="60px")
-nav(id="navbar-example2", class="navbar navbar-light bg-light justify-content-around d-md-none orders-small")
- ul(class="nav nav-pills")
-  li(class="nav-item")
-   a(class="nav-link", href="#cOrders") Completed Orders
-  li(class="nav-item")
-   a(class="nav-link", href="#pOrders") Pending Orders
-div(data-spy="scroll", data-target="#navbar-example2", data-offset="0", class="d-md-none")
- each order in orders
-  if order.complete
-   div(id="cOrders", class='d-flex complete-item')
-    div(class="col-6")
-     if order.orders
-      h4= order.orders.fName + " " + order.orders.lName
-     else if order.companyOrders
-      h4= order.companyOrders.name
-     else
-      h4 NO NAME
-    div(class="col-3")   
-     p= order.comments
-    div(class="col-3") 
-     img(src="check2-circle.svg", width="auto", height="70px")
-  if !order.complete
-   div(id="pOrders", class='d-flex pending-item')
-    div(class="col-6")
-     if order.orders
-      h4= order.orders.fName + " " + order.orders.lName
-     else if order.companyOrders
-      h4= order.companyOrders.name
-     else
-      h4 NO NAME
-    div(class="col-3")   
-     p= order.comments
-    div(class="col-3") 
-     img(src="circle.svg", width="auto", height="60px")
- 
+extends layout
+
+block content
+ div
+  div(class="row m-0", style="padding-left:10px;padding-right:10px")
+   div(class="col orders-header") Place an Order
+  div(class='row m-0', style="padding-left:10px;padding-right:10px")
+   div(class='col orders-body')
+    div(class='row m-0 services', style="padding-top:10px;padding-bottom:20px")
+     each service in services
+      div(class="col d-flex justify-content-center")
+       a(href="#")
+        img(src=service.imgSrc, alt="Card image cap", width="80px", height="auto")
+    div(class='row m-0', style="height:1000px;background-color:#DBF2FF")    
+     form(class="col-lg-3 order-form", style="height:1000px;background-color:white;border:2px")
+      div(class="row")
+       label(class="form-row", for="width") Please enter the screen's dimensions:
+      div(class="row")
+       div(class="form-row mt-2")
+        div(class="form-group col") 
+            input#width.form-control(type='width' placeholder='26 1/2')
+            label(for='width') Width
+        div(class="form-group col-1") X 
+        div(class="form-group col") 
+            input#height.form-control(type='height' placeholder='32 3/4')
+            label(for='height') Height
+        div(class="form-group col-1") X   
+        div(class="form-group col") 
+            input#depth.form-control(type='depth' placeholder='7/16')
+            label(for='depth') Depth
+      div(class="row")     
+        div(class="form-group")  
+         label(class="mt-2", for="frameType") Please select the frame type:
+         select#frameType.form-control
+          option Standard
+          option Storm
+      div(class="row")     
+        div(class="form-group")  
+         label(class="mt-2", for="frameColor") Please select the frame color:
+         select#frameColor.form-control
+          option White
+          option Bronze
+          option Mill
+          option Sandstone
+          option Almond
+          option Black
+      div(class="row")      
+       div(class="form-group")  
+        label(class="mt-2", for="screenColorType") Please select the screen color and material:
+        select#screenColorType.form-control
+         option Charcoal Fiberglass
+         option Gray Fiberglass
+         option Charcoal Aluminum
+         option Mill Aluminum
+         option Black Aluminum
+         option Black PetSafe
+         option Gray PetSafe
+      div(class="row")   
+       div(class="form-group")  
+        label(class="mt-2", for="screenColorType") Please select the screen color and material:
+        select#screenColorType.form-control
+         option Charcoal Fiberglass
+         option Gray Fiberglass
+         option Charcoal Aluminum
+         option Mill Aluminum
+         option Black Aluminum
+         option Black PetSafe
+         option Gray PetSafe
+      button.btn.btn-primary.btn-block.footer.mb-2(type='submit') Submit
+
+     
